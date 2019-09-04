@@ -3,7 +3,8 @@ var actual_pi = 3.14159265358979323846264338327950288419716939937510582097494459
 function nilakantha(m) {
 	var pi = one_fourth_pi = n = 0;
 
-	var time = performance.now();
+	const NS_PER_SEC = 1e9;
+	var time = process.hrtime();
 
 	while(Math.abs(pi - actual_pi) > Math.pow(10,-m)) {
 		for (var i = 0; i < n + 1; i++) {
@@ -15,7 +16,8 @@ function nilakantha(m) {
 		++n;
 	}
 
-	return performance.now() - time; //time in ms.
+	var diff = process.hrtime(time);
+	return (diff[0] * NS_PER_SEC + diff[1]) / 10000000; //time in ms
 }
 
 function profile(n,m) { //n: # trials; m: precision to pass to nilakantha function.
@@ -29,12 +31,28 @@ function profile(n,m) { //n: # trials; m: precision to pass to nilakantha functi
 		sum += arr[i];
 	}
 	var average = sum / n;
-	alert(`Average time to compute to a precision of ${m} with ${n} trials: ${average.toFixed(2)}ms.`);
+	console.log(`Average time to compute to a precision of ${m} with ${n} trials: ${average.toFixed(2)}ms.`);
+	process.exit();
 }
 
 function main() {
-	var m = Number(prompt("Please enter a precision to calculate pi at: "));
-	var n = Number(prompt("Please enter the number of iterations to profile at: "));
-	profile(n,m);
+	var standard_input = process.stdin;
+	standard_input.setEncoding('utf-8');
+
+	console.log("Please enter a precision to calculate pi at: ");
+	var n = m = i = 0;
+
+	standard_input.on('data', data => { //capture input
+		if (i == 0) {
+			m = Number(data);
+			i++;
+			console.log("Please enter the number of iterations to profile at: ");
+		}
+		else if (i == 1) {
+			n = Number(data);
+			profile(n,m);
+			i++;
+		}
+	});
 }
 main();

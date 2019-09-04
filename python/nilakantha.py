@@ -1,9 +1,10 @@
 import time;
+import os;
 
 #initialize wolfram-alpha's pi approximation for comparision
 actual_pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062;
 
-def main(m):
+def nilakantha(m):
     pi = one_fourth_pi = n = 0; #initialize to 0
 
     init_time = time.process_time();
@@ -21,12 +22,19 @@ def profile(n,m):
     arr = [];
 
     for i in range(0,n):
-        arr.append(main(m));
+        arr.append(nilakantha(m));
 
     _sum = 0;
     for i in range(0,n):
         _sum += arr[i];
     average = _sum / n * 100; # *100 to get from s to ms.
 
-    print("Average time to compute to a precision of " + str(m) + " with " + str(n) + " trials: " + str(average) + "ms.");
+    print("\nAverage time to compute to a precision of " + str(m) + " with " + str(n) + " trials: " + f'{average:.2f}' + "ms.");
 
+def main():
+    m = int(input("Please enter a precision to calculate pi at: "))
+    n = int(input("\nPlease enter the number of iterations to profile at: "))
+    profile(n,m)
+
+main()
+os._exit(1)

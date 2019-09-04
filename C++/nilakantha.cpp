@@ -37,17 +37,17 @@ int main() {
   std::cout << std::endl;
 
 
-  std::vector < long > arr;
+  std::vector < float > arr;
 
   for(int i = 0; i < n; i++) {
     arr.push_back(nilikantha(m));
   }
-  long sum = 0;
+  float sum = 0;
   
   for(int i=0; i<n; i++) {
     sum += arr[i];
   }
-  long average = sum / n;
+  float average = sum / n;
   
   std::cout << "Average time to compute to a precision of " << m << " with "
 	    << n << " trials: " << average << "ms\n";
