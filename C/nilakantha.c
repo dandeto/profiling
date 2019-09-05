@@ -50,6 +50,12 @@ int main(void) {
   }
 
   double average = sum/n;
+
+  FILE *file;
+  file = fopen("out.txt", "a");
+  fprintf(file, "Average time to compute to a precision of %d with %d trials: %.2fms\n", m, n, average);
+  fclose(file);
+
   printf("\nAverage time to compute to a precision of %d with %d trials: %.2fms\n", m, n, average);
 
   return 0;

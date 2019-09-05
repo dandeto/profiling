@@ -33,8 +33,12 @@ function profile(n,m) { //n: # trials; m: precision to pass to nilakantha functi
 		sum += arr[i];
 	}
 	var average = sum / n;
-	console.log(`Average time to compute to a precision of ${m} with ${n} trials: ${average.toFixed(2)}ms.`);
-	process.exit();
+	var str = `Average time to compute to a precision of ${m} with ${n} trials: ${average.toFixed(2)}ms.\r\n`;
+
+	fs.appendFile("out.txt", str, function(err) {
+		console.log(str);
+		process.exit();
+	}); 
 }
 
 function main() {

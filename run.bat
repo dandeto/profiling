@@ -35,12 +35,16 @@ echo/
 	echo/
 	echo [I] Set standard input file
 	echo [T] Toggle input file on/off
+	echo [G] Generate output file
+	echo [R] Reset output file
 	echo [B] Back
 
 	set /p input= "Enter Menu Option: "
 	if %input% == B (goto :menu) else if %input% == b (goto :menu
 	) else if %input% == T (goto :toggle) else if %input% == t (goto :toggle
-	) else if %input% == I (goto :input_file) else if %input% == i (goto :input_file) 
+	) else if %input% == I (goto :input_file) else if %input% == i (goto :input_file
+	) else if %input% == G (goto :output_file) else if %input% == g (goto :output_file
+	) else if %input% == R (goto :reset_output) else if %input% == r (goto :reset_output)
 	goto :settings
 
 :toggle
@@ -56,6 +60,54 @@ echo/
 	echo %file%	
 	goto :settings
 
+:output_file
+	cls
+	echo --Generating output file to %CD%--
+	echo nilakantha algorithm performance test > out.txt
+	echo/ >> out.txt
+
+	if exist C/out.txt (
+		echo --C-- >> out.txt
+		cd C
+		type out.txt >> ../out.txt
+		cd..
+	)
+	if exist C++/out.txt (
+		echo --C++-- >> out.txt
+		cd C++
+		type out.txt >> ../out.txt
+		cd..
+	)
+	if exist python/out.txt (
+		echo --python-- >> out.txt
+		cd python
+		type out.txt >> ../out.txt
+		cd..
+	)
+	if exist ruby/out.txt (
+		echo --ruby-- >> out.txt
+		cd ruby
+		type out.txt >> ../out.txt
+		cd..
+	)
+	if exist js/out.txt (
+		echo --JavaScript-- >> out.txt
+		cd js
+		type out.txt >> ../out.txt
+		cd..
+	)
+
+	pause
+	goto :settings
+
+:reset_output
+	cls
+	del "%CD%\C\out.txt"
+	del "%CD%\C++\out.txt"
+	del "%CD%\python\out.txt"
+	del "%CD%\ruby\out.txt"
+	del "%CD%\js\out.txt"
+	goto :settings
 
 :main
 	echo/
@@ -109,14 +161,18 @@ goto :main
 goto :main
 
 :3
-	if %use_file% == "true" ( python -i python/nilakantha.py < %file%
-	) else ( python -i python/nilakantha.p y)
+	cd python
+	if %use_file% == "true" ( python -i nilakantha.py < ../%file%
+	) else ( python -i nilakantha.py )
+	cd..
 
 goto :main
 
 :4
-	if %use_file% == "true" ( ruby ruby/nilakantha.rb < %file%
-	) else ( ruby ruby/nilakantha.rb )
+	cd ruby
+	if %use_file% == "true" ( ruby nilakantha.rb < ../%file%
+	) else ( ruby nilakantha.rb )
+	cd..
 
 goto :main
 
@@ -128,8 +184,10 @@ goto :main
 	if %input% == 1 (
 		echo Node.js
 		echo/
-		if %use_file% == "true" ( node js/index-node.js < %file%
-		) else ( node js/index-node.js )
+		cd js
+		if %use_file% == "true" ( node index-node.js < ../%file%
+		) else ( node index-node.js )
+		cd..
 	) else if %input% == 2 (
 		echo Browser
 		echo/

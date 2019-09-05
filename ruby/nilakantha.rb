@@ -34,7 +34,12 @@ def profile(n,m)
 	end
 	average = sum / n * 100; # *100 to get from s to ms.
 
-	puts "\nAverage time to compute to a precision of #{m} with #{n} trials: #{'%.2f' % average}ms."
+	str = "Average time to compute to a precision of #{m} with #{n} trials: #{'%.2f' % average}ms."
+
+	puts "\n" + str
+	output = File.open("out.txt", "a")
+	output << str + "\n"
+	output.close
 end
 
 def main()
