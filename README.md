@@ -5,7 +5,7 @@
 - C++
 - Python
 - Ruby
-- JavaScript (runs in browser)
+- JavaScript (browser and node.js runtimes)
 
 #### Algorithms
 - Nilakantha method of determining PI to a specified precision

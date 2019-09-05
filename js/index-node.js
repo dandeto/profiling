@@ -1,5 +1,7 @@
 var actual_pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062;
 
+var fs = require("fs");
+
 function nilakantha(m) {
 	var pi = one_fourth_pi = n = 0;
 
@@ -39,20 +41,40 @@ function main() {
 	var standard_input = process.stdin;
 	standard_input.setEncoding('utf-8');
 
-	console.log("Please enter a precision to calculate pi at: ");
-	var n = m = i = 0;
+	var file;
 
-	standard_input.on('data', data => { //capture input
-		if (i == 0) {
-			m = Number(data);
-			i++;
-			console.log("Please enter the number of iterations to profile at: ");
+	function file_in() {
+		try {
+			file = fs.readFileSync(0).toString()
+			return true;
+		} catch (error) {
+			return false;
 		}
-		else if (i == 1) {
-			n = Number(data);
-			profile(n,m);
-			i++;
+	}
+
+	if (!file_in()) {
+
+		console.log("Please enter a precision to calculate pi at: ");
+		var n = m = i = 0;
+
+		standard_input.on('data', data => { //capture input
+			if (i == 0) {
+				m = Number(data);
+				i++;
+				console.log("Please enter the number of iterations to profile at: ");
+			}
+			else if (i == 1) {
+				n = Number(data);
+				profile(n,m);
+				i++;
+			}
+		});
+	} else { //file in
+		file = file.split("\n");
+		for (var i = 0; i < file.length; i++) {
+			file[i] = file[i].replace("\r", "");
 		}
-	});
+		profile(Number(file[1]),Number(file[0]));
+	}
 }
 main();
