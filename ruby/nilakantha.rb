@@ -32,12 +32,12 @@ def profile(n,m)
 	for i in 0..n
 		sum += arr[i];
 	end
-	average = sum / n * 100; # *100 to get from s to ms.
+	average = sum / n * 1000; # *1000 to get from s to ms.
 
 	str = "Average time to compute to a precision of #{m} with #{n} trials: #{'%.2f' % average}ms."
 
 	puts "\n" + str
-	output = File.open("out.txt", "a")
+	output = File.open("out.part", "a")
 	output << str + "\n"
 	output.close
 end

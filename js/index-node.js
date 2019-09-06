@@ -19,7 +19,7 @@ function nilakantha(m) {
 	}
 
 	var diff = process.hrtime(time);
-	return (diff[0] * NS_PER_SEC + diff[1]) / 10000000; //time in ms
+	return (diff[0] * NS_PER_SEC + diff[1]) / 1000000; //time in ms
 }
 
 function profile(n,m) { //n: # trials; m: precision to pass to nilakantha function.
@@ -35,7 +35,7 @@ function profile(n,m) { //n: # trials; m: precision to pass to nilakantha functi
 	var average = sum / n;
 	var str = `Average time to compute to a precision of ${m} with ${n} trials: ${average.toFixed(2)}ms.\r\n`;
 
-	fs.appendFile("out.txt", str, function(err) {
+	fs.appendFile("out.part", str, function(err) {
 		console.log(str);
 		process.exit();
 	}); 

@@ -20,7 +20,8 @@ echo/
 
 	set /p input= "Enter Menu Option: "
 	cls
-	if %input% == L (goto :main) else if %input% == l (goto :main) else if %input% == S (goto :settings) else if %input% == s (goto :settings) else (goto :menu)
+	if %input% == L (goto :main) else if %input% == l (goto :main) else if %input% == S (goto :settings) else if %input% == s (goto :settings)
+	goto :menu
 
 :settings
 	cls
@@ -66,34 +67,34 @@ echo/
 	echo nilakantha algorithm performance test > out.txt
 	echo/ >> out.txt
 
-	if exist C/out.txt (
+	if exist C/out.part (
 		echo --C-- >> out.txt
 		cd C
-		type out.txt >> ../out.txt
+		type out.part >> ../out.txt
 		cd..
 	)
-	if exist C++/out.txt (
+	if exist C++/out.part (
 		echo --C++-- >> out.txt
 		cd C++
-		type out.txt >> ../out.txt
+		type out.part >> ../out.txt
 		cd..
 	)
-	if exist python/out.txt (
+	if exist python/out.part (
 		echo --python-- >> out.txt
 		cd python
-		type out.txt >> ../out.txt
+		type out.part >> ../out.txt
 		cd..
 	)
-	if exist ruby/out.txt (
+	if exist ruby/out.part (
 		echo --ruby-- >> out.txt
 		cd ruby
-		type out.txt >> ../out.txt
+		type out.part >> ../out.txt
 		cd..
 	)
-	if exist js/out.txt (
+	if exist js/out.part (
 		echo --JavaScript-- >> out.txt
 		cd js
-		type out.txt >> ../out.txt
+		type out.part >> ../out.txt
 		cd..
 	)
 
@@ -101,12 +102,14 @@ echo/
 	goto :settings
 
 :reset_output
+	del "%CD%\C\out.part"
+	del "%CD%\C++\out.part"
+	del "%CD%\python\out.part"
+	del "%CD%\ruby\out.part"
+	del "%CD%\js\out.part"
 	cls
-	del "%CD%\C\out.txt"
-	del "%CD%\C++\out.txt"
-	del "%CD%\python\out.txt"
-	del "%CD%\ruby\out.txt"
-	del "%CD%\js\out.txt"
+	echo --Deleted all program-specific output files--
+	pause
 	goto :settings
 
 :main

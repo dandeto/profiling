@@ -22,8 +22,7 @@ auto nilikantha(int m) {
     ++n;
   }
 
-  //after testing I determined that this returned a magnitude of 10 greater than the correct ms values - I correct that here.
-  return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - time).count() *.1;
+  return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - time).count();
 }
 
 int main() {
@@ -51,7 +50,7 @@ int main() {
   float average = sum / n;
 
   std::ofstream file;
-  file.open("out.txt", std::ofstream::out | std::ofstream::app);
+  file.open("out.part", std::ofstream::out | std::ofstream::app);
   file << "Average time to compute to a precision of " << m << " with "
        << n << " trials: " << average << "ms\n";
   

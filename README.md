@@ -14,7 +14,24 @@
 #### Running instructions:
 1. Compile C and C++ programs however you want. Sample methods listed below. If you want to profile Python or Ruby, make sure you have them installed.
 2. Open run.bat
-3. Select a programming language and input what you are prompted for.
+3. Traverse the menus
+
+#### Input file:
+Instead of typing in the same parameters, you can select a file to input the data for you. The contents of the file should be 2 lines:
+```
+precision
+number of iterations
+```
+**EX:**
+```
+12
+10
+```
+You select the file in the settings menu of `run.bat`
+
+#### Output file:
+Each time you run a program, it will output the results to a `out.part` file. In the settings, you can generate a master `out.txt` file which stitches all the `.part` files together.
+If you want to test something specific and don't want all your previous trial history included in the master out file, select the *Reset output files* option before testing.
 
 #### Sample compilation:
 - Linux

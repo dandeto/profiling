@@ -24,7 +24,7 @@ double nilakantha(int m) {
 
   clock_t end = clock();
 
-  return (end-init)/(double)CLOCKS_PER_SEC * 100;
+  return (end-init)/(double)CLOCKS_PER_SEC * 1000; //seconds to miliseconds
 }
 
 
@@ -52,7 +52,7 @@ int main(void) {
   double average = sum/n;
 
   FILE *file;
-  file = fopen("out.txt", "a");
+  file = fopen("out.part", "a");
   fprintf(file, "Average time to compute to a precision of %d with %d trials: %.2fms\n", m, n, average);
   fclose(file);
 
